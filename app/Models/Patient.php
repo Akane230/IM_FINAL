@@ -16,6 +16,11 @@ class Patient extends Model
         return $this->belongsTo(LocalDoctor::class, 'clinicID');
     }
 
+    // Add alias for backward compatibility
+    public function localDoctor() {
+        return $this->doctor();
+    }
+
     public function kin() {
         return $this->hasMany(NextOfKin::class, 'patientID');
     }
@@ -32,21 +37,25 @@ class Patient extends Model
         return $this->hasOne(Outpatient::class, 'patientID');
     }
 
+    public function outpatientAppointments() {
+        return $this->hasMany(Outpatient::class, 'patientID');
+    }
+
     public function appointments() {
+        return $this->hasMany(PatientAppointment::class, 'patientID');
+    }
+
+    public function patientAppointments() {
         return $this->hasMany(PatientAppointment::class, 'patientID');
     }
 
     public function latestAppointment()
     {
         return $this->hasOne(\App\Models\PatientAppointment::class, 'patientID', 'patientID')->latestOfMany('appointmentDate');
-
     }
 
-    // inside App\Models\Patient class
     public function getFullNameAttribute()
     {
         return trim($this->fname . ' ' . $this->lname);
     }
-
-
 }

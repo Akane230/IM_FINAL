@@ -83,6 +83,10 @@ Route::middleware('auth')->group(function () {
 
     // === OUTPATIENTS ===
     Route::get('/outpatients', [OutpatientController::class, 'index'])->name('outpatients.index');
+    Route::get('/outpatients', [OutpatientController::class, 'index'])->name('outpatients.index');
+    Route::get('/outpatients/report', [OutpatientController::class, 'reportForm'])->name('outpatients.report.form');
+    Route::get('/outpatients/report/generate', [OutpatientController::class, 'generateReport'])->name('outpatients.report.generate');
+    Route::get('/outpatients/stats', [OutpatientController::class, 'getStats'])->name('outpatients.stats');
 
     // === LOCAL DOCTORS ===
     Route::prefix('doctors')->name('doctors.')->group(function () {

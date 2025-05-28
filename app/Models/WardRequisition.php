@@ -20,4 +20,8 @@ class WardRequisition extends Model
     public function receivedByNurse() {
         return $this->belongsTo(ChargeNurse::class, 'receivedBy', 'staffID');
     }
+
+    public function wardRequisitionItems() {
+        return $this->hasMany(WardRequisitionItem::class, 'requisitionItemID');
+    }
 }
